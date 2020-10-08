@@ -50,7 +50,7 @@ npm start
 
 * Se creara un index.js en cada carpeta
 
-* ```
+* ```react
   import React from 'react';
    
   const App = () => (
@@ -79,7 +79,7 @@ npm start
 
   * /Users/mario/Documents/landing/inte/dos/src/constants/routes.js es preferible que dejen rutas contanstens
   
-  * ```
+  * ```react
     export const LANDING = '/';
     export const SIGN_UP = '/signup';
     export const SIGN_IN = '/signin';
@@ -101,18 +101,18 @@ npm start
 
   *src/components/Firebase/firebase.js* se usa para configurar las llaves de firebase (En la configuracion del proyecto, en configuracion)
 
-  ```
+  ```react
   import app from 'firebase/app';
   
   const config = {
-    apiKey: "AIzaSyAY9rDF5fb1ZGL7t4cBgzRFZOuz3UZXx7Y",
-    authDomain: "login-agencia.firebaseapp.com",
-    databaseURL: "https://login-agencia.firebaseio.com",
-    projectId: "login-agencia",
-    storageBucket: "login-agencia.appspot.com",
-    messagingSenderId: "474994441231",
-    appId: "1:474994441231:web:9503a587ca3494f294b77a",
-    measurementId: "G-JDQPLEHZLJ"
+    apiKey: "    ",
+    authDomain: "   ",
+    databaseURL: "  ",
+    projectId: "   ",
+    storageBucket: "   ",
+    messagingSenderId: "       ",
+    appId: "  ",
+    measurementId: "  "
   };
   class Firebase {
     constructor() {
@@ -125,7 +125,7 @@ npm start
 
 *  *src/components/Firebase/context.js* se crea context.js con:
 
-* ```
+* ```react
   import React from 'react';
    
   const FirebaseContext = React.createContext(null);
@@ -135,7 +135,7 @@ npm start
 
 * Se pasa el index a firebase.js y en index.js se deja con:
 
-* ```
+* ```react
   import FirebaseContext from './context';
   import Firebase from './firebase';
    
@@ -146,7 +146,7 @@ npm start
 
 * Dentro de src/index.js y quedara así
 
-* ```
+* ```react
   import React from 'react';
   import ReactDOM from 'react-dom';
    
@@ -179,7 +179,7 @@ npm start
 
 * *src/components/Firebase/firebase.js* se agrega
 
-* ```
+* ```react
   import app from 'firebase/app';
   import 'firebase/auth';
   
@@ -222,9 +222,152 @@ npm start
 
 <h2>SignUp</h2>
 
+* dentro de src/components/SignUp/index.js
 
+* ```react
+  import React, { Component } from 'react';
+  import { Link, withRouter } from 'react-router-dom';
+  import { FirebaseContext } from '../Firebase';
+  import { withFirebase } from '../Firebase';
+  
+  import * as ROUTES from '../../constants/routes';
+   
+  const SignUpPage = () => (
+    <div>
+      <h1>SignUp</h1>
+      <SignUpForm />
+    </div>
+  );
+  
+  const INITIAL_STATE = {
+    username: '',
+    email: '',
+    passwordOne: '',
+    passwordTwo: '',
+    error: null,
+  };
+  
+  class SignUpFormBase extends Component  {
+    constructor(props) {
+      super(props);
+      this.state = { ...INITIAL_STATE };
+  
+      
+    }
+   
+    onSubmit = event => {
+      const { username, email, passwordOne } = this.state;
+   
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, passwordOne)
+        .then(authUser => {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.HOME);
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+   
+      event.preventDefault();
+    }
+   
+    onChange = event => {
+   
+    };
+   
+    render() {
+      const {
+        username,
+        email,
+        passwordOne,
+        passwordTwo,
+        error,
+      } = this.state;
+  
+  
+  
+      const isInvalid =
+        passwordOne !== passwordTwo ||
+        passwordOne === '' ||
+        email === '' ||
+        username === '';
+  
+  
+      return (
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Full Name"
+          />
+          <input
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+          <input
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+          />
+          <input
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <button disabled={isInvalid} type="submit">Sign Up</button>
+   
+          {error && <p>{error.message}</p>}
+        </form>
+      );
+    }
+  }
+   
+  const SignUpLink = () => (
+    <p>
+      Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    </p>
+  );
+   
+  const SignUpForm = withRouter(withFirebase(SignUpFormBase));
+  export default SignUpPage;
+   
+  export { SignUpForm, SignUpLink };
+  ```
 
+* Dentro de src/components/Firebase/context.js
 
+* ```react
+  import React from 'react';
+   
+  const FirebaseContext = React.createContext(null);
+  export const withFirebase = Component => props => (
+      <FirebaseContext.Consumer>
+        {firebase => <Component {...props} firebase={firebase} />}
+      </FirebaseContext.Consumer>
+    );
+  export default FirebaseContext;
+  ```
+
+* dentro de isrc/components/Firebase/index.js
+
+* ```react
+  import FirebaseContext, { withFirebase } from './context';
+  import Firebase from './firebase';
+  
+  export default Firebase;
+  export { FirebaseContext, withFirebase };
+  ```
+
+  
 
 <h2>Sign In o Ingresar</h2>
 

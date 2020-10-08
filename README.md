@@ -367,7 +367,13 @@ npm start
   export { FirebaseContext, withFirebase };
   ```
 
-  
+* en la linea de comandos
+
+  * ```
+    npm install recompose
+    ```
+
+* 
 
 <h2>Sign In o Ingresar</h2>
 

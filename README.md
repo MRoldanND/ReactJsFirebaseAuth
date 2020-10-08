@@ -102,19 +102,78 @@ npm start
   *src/components/Firebase/firebase.js* se usa para configurar las llaves de firebase (En la configuracion del proyecto, en configuracion)
 
   ```
+  import app from 'firebase/app';
+  
   const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    apiKey: "AIzaSyAY9rDF5fb1ZGL7t4cBgzRFZOuz3UZXx7Y",
+    authDomain: "login-agencia.firebaseapp.com",
+    databaseURL: "https://login-agencia.firebaseio.com",
+    projectId: "login-agencia",
+    storageBucket: "login-agencia.appspot.com",
+    messagingSenderId: "474994441231",
+    appId: "1:474994441231:web:9503a587ca3494f294b77a",
+    measurementId: "G-JDQPLEHZLJ"
   };
+  class Firebase {
+    constructor() {
+      app.initializeApp(config);
+    }
+  }
+   
+  export default Firebase;
+  ```
+
+*  *src/components/Firebase/context.js* se crea context.js con:
+
+* ```
+  import React from 'react';
+   
+  const FirebaseContext = React.createContext(null);
+   
+  export default FirebaseContext;
+  ```
+
+* Se pasa el index a firebase.js y en index.js se deja con:
+
+* ```
+  import FirebaseContext from './context';
+  import Firebase from './firebase';
+   
+  export default Firebase;
+   
+  export { FirebaseContext };
+  ```
+
+* Dentro de src/index.js y quedara así
+
+* ```
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+   
+  import './index.css';
+  import * as serviceWorker from './serviceWorker';
+   
+  import App from './components/App';
+  import Firebase, { FirebaseContext } from './components/Firebase';
+   
+  ReactDOM.render(
+    <FirebaseContext.Provider value={new Firebase()}>
+      <App />
+    </FirebaseContext.Provider>,
+    document.getElementById('root'),
+  );
+  // If you want your app to work offline and load faster, you can change
+  // unregister() to register() below. Note this comes with some pitfalls.
+  // Learn more about service workers: https://bit.ly/CRA-PWA
+  serviceWorker.unregister();
+  
   ```
 
   
 
 <h2>SignUp o Crear Usuario</h2>
+
+
 
 
 

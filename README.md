@@ -77,6 +77,22 @@ npm start
   cd ..
   ```
 
+  * /Users/mario/Documents/landing/inte/dos/src/constants/routes.js es preferible que dejen rutas contanstens
+  
+  * ```
+    export const LANDING = '/';
+    export const SIGN_UP = '/signup';
+    export const SIGN_IN = '/signin';
+    export const HOME = '/home';
+    export const ACCOUNT = '/account';
+    export const ADMIN = '/admin';
+    export const PASSWORD_FORGET = '/pw-forget';
+    ```
+  
+* ```
+  npm install react - enrutador - dom
+  ```
+
   
 
 <h2>SignUp o Crear Usuario</h2>
@@ -86,3 +102,7 @@ npm start
 <h2>Singn o Ingresar</h2>
 
 
+
+
+
+<h3>Basado en tutorial de ROBIN WIERUCH, 2018 - <a href="https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial">Ir a Web</a>

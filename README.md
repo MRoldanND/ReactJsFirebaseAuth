@@ -171,13 +171,62 @@ npm start
 
   
 
-<h2>SignUp o Crear Usuario</h2>
+<h2>API de Autenticacion</h2>
+
+**Correo**
+
+* Se habilita dentro de firebase esta opcion
+
+* *src/components/Firebase/firebase.js* se agrega
+
+* ```
+  import app from 'firebase/app';
+  import 'firebase/auth';
+  
+  const config = {...};
+  
+  class Firebase {
+    constructor() {
+      app.initializeApp(config);
+   
+      this.auth = app.auth();
+    }
+   
+    //API de Atenticacion 
+  
+   
+    doCreateUserWithEmailAndPassword = (email, password) =>
+      this.auth.createUserWithEmailAndPassword(email, password);
+   
+    doSignInWithEmailAndPassword = (email, password) =>
+      this.auth.signInWithEmailAndPassword(email, password);
+   
+    doSignOut = () => this.auth.signOut();
+   
+    doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+   
+    doPasswordUpdate = password =>
+      this.auth.currentUser.updatePassword(password);
+      
+  }
+  
+  
+  export default Firebase;
+  ```
+
+  
 
 
 
 
 
-<h2>Singn o Ingresar</h2>
+<h2>SignUp</h2>
+
+
+
+
+
+<h2>Sign In o Ingresar</h2>
 
 
 

@@ -1,68 +1,88 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1>Crear usuarios y validarlos React Js con Firebase</h1>
 
-## Available Scripts
+------------------------------------------------------------------------------------------------------------------------------------
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h2>Prueba local</h2>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+npm run build
+npm start
+```
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<h2>Proceso de Creación</h2>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Se crea un proyecto en react js**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npx create-react-app nombre-app
+cd nombre-app
+npm start
+```
 
-### `yarn eject`
+**Se inicia la configuración**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* se elimina, lo que no se usa
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* ```
+  cd src
+  rm App.js App.test.js App.css logo.svg
+  ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Se crea componente dentro de src
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* ```
+  mkdir components
+  ```
 
-## Learn More
+* En la carpeta que se creara seran puestos los componentes. ademas de restaurar el proyecto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* ```
+  cd components
+  mkdir Account Admin App Home Landing SignIn SignOut SignUp
+  mkdir Navigation PasswordChange PasswordForget
+  mkdir Session Firebase
+  ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Se creara un index.js en cada carpeta
 
-### Code Splitting
+* ```
+  import React from 'react';
+   
+  const App = () => (
+    <div>
+      <h1>App</h1>
+    </div>
+  );
+   
+  export default App;
+  ```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+  * Se redireeciona inte/dos/src/index.js
 
-### Analyzing the Bundle Size
+  * ```
+    import App from './components/App'
+    ```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* Se crea otro folder en src
 
-### Making a Progressive Web App
+* ```
+  mkdir constants
+  cd constants
+  touch routes.js roles.js
+  cd ..
+  ```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  
 
-### Advanced Configuration
+<h2>SignUp o Crear Usuario</h2>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<h2>Singn o Ingresar</h2>
 
-### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

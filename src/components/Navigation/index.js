@@ -18,6 +18,11 @@ const Navigation = () => (
       <li>
         <Link to={ROUTES.ACCOUNT}>Account</Link>
       </li>
+
+      <li>
+        <Link to={ROUTES.SIGN_OUT}>Exit</Link>
+      </li>
+
       <li>
         <Link to={ROUTES.ADMIN}>Admin</Link>
       </li>

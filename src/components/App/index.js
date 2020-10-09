@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,7 +14,8 @@ import AccountPage from '../Account';
 import AdminPage from '../Admin';
  
 import * as ROUTES from '../../constants/routes';
- 
+
+
 const App = () => (
   <Router>
     <div>

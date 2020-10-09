@@ -7,7 +7,9 @@
 <h2>Prueba local</h2>
 
 ```
-npm run build
+git clone https://github.com/MRoldanND/ReactJsFirebaseAuth.git
+cd REactJsFirebaseAuth
+npm install
 npm start
 ```
 

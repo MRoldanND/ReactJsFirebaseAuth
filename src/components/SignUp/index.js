@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
-import { withFirebase } from '../Firebase';
+import { Link } from 'react-router-dom';
 
+import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
  
 const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
-    <SignUpForm />
+    <FirebaseContext.Consumer>
+      {firebase => <SignUpForm firebase={firebase} />}
+    </FirebaseContext.Consumer>
   </div>
 );
-
 const INITIAL_STATE = {
   username: '',
   email: '',
@@ -19,15 +19,14 @@ const INITIAL_STATE = {
   passwordTwo: '',
   error: null,
 };
-
-class SignUpFormBase extends Component  {
+ 
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE };
-
-    
-  }
  
+    this.state = { ...INITIAL_STATE };
+  }
+
   onSubmit = event => {
     const { username, email, passwordOne } = this.state;
  
@@ -35,17 +34,17 @@ class SignUpFormBase extends Component  {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
       })
       .catch(error => {
         this.setState({ error });
       });
  
     event.preventDefault();
-  }
+  };
  
+   
   onChange = event => {
- 
+    this.setState({ [event.target.name]: event.target.value });
   };
  
   render() {
@@ -57,14 +56,11 @@ class SignUpFormBase extends Component  {
       error,
     } = this.state;
 
-
-
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
       username === '';
-
 
     return (
       <form onSubmit={this.onSubmit}>
@@ -104,16 +100,13 @@ class SignUpFormBase extends Component  {
   }
 }
  
+ 
 const SignUpLink = () => (
   <p>
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
  
-const SignUpForm = compose(
-  withRouter,
-  withFirebase,
-)(SignUpFormBase);
 export default SignUpPage;
  
 export { SignUpForm, SignUpLink };
